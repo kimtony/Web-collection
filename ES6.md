@@ -143,3 +143,157 @@ let {name:otherName, famillyName, myAge} = contacts;
 
 console.log(otherName);// said
 ```
+对于数组，我们使用与对象相同的语法。我们只需用方括号替换花括号。
+```
+const Arr = ['Lionel', 'John', 'Layla', 20];
+
+let [value1, value2, value3] = Arr;
+console.log(value1); // Lionel
+console.log(value2); // John
+console.log(value3); // Layla
+```
+## ES6 模块:Import和export
+在 JavaScript 应用程序中使用 import 和 export 使其更强大。它们允许您创建单独的可重用组件。<br/>
+如果您熟悉任何 JavaScript MVC 框架，您将看到他们使用 import 和 export 出来在大多数时间处理组件。那么它们如何真正起作用呢？<br/>
+很简单！ export 允许您导出要在另一个 JavaScript 组件中使用的模块。我们使用 import 导入该模块以在我们的组件中使用它。<br/>
+例如，我们有两个文件。第一个名为 detailComponent.js，第二个名为 homeComponent.js。<br/>
+在 detailComponent.js 中，我们将导出 detail 函数。<br/>
+```
+// ES6 
+export default function detail(name, age) {
+  return `Hello ${name}, your age is ${age} year old!`;
+}
+```
+如果我们想在 homeComponent.js 中使用此函数，我们将只使用 import
+```
+import { detail } from './detailComponent';
+
+console.log(detail('Said', 20)); // Hello Said, your age is 20 year old!
+```
+如果我们要导入多个模块，我们只需将它们放在大括号内。
+
+```
+import {detail, userProfile, getPosts} from './detailComponent';
+console.log(detail('Said', 20)); 
+console.log(userProfile); 
+console.log(getPosts));
+```
+## 编写异步代码:promis
+
+Promise 是 ES6 的新功能。这是编写异步代码的方法。例如，当我们想要从 API 获取数据时，可以使用它，或者当我们有一个需要时间执行的函数时。
+Promise 使解决问题更容易，所以让我们创建我们的第一个 Promise！
+```
+const myPromise = () => {
+  return new Promise((resolve, reject) => {
+    resolve('Hi the Promise execute successfully');
+  })
+}
+console.log(myPromise()); // Promise {<resolved>: "Hi the Promise execute successfully"}
+```
+如果您登录控制台，它将返回一个 Promise。因此，如果我们想在获取数据后执行一个函数，我们将使用 Promise。 Promise有两个参数： resolve 和 reject 来处理预期的错误。<br/>
+注意：fetch函数返回一个Promise本身！
+```
+const url='https://jsonplaceholder.typicode.com/posts';
+const getData=(url)=>{
+  return fetch(url);
+}
+getData(url).
+then(data=> data.json()).
+then(result=> console.log(result));
+```
+现在，如果您登录控制台，它将返回一个数据数组。
+## Rest 参数和 Spread 运算符
+Rest 参数用于获取数组的参数，并返回一个新数组。
+```
+const arr = ['said', 20, 'Javascript enthusiast', 'Hi', 'Said', 'How are you?'];
+
+// 通过解构获取值
+const [val1, val2, val3, ...rest] = arr;
+
+const Func = (restOfArr) => {
+  return restOfArr.filter(item => {return item}).join(" ");
+}
+
+console.log(Func(rest)); // Hi Said How are you?
+const arr = ['said', 20, 'Javascript enthusiast', 'Hi', 'Said', 'How are you?'];
+
+const Func = (...anArray) => anArray;
+
+console.log(Func(arr)); //  ['said', 20, 'Javascript enthusiast', 'Hi', 'Said', 'How are you?']
+```
+spread 运算符与 rest 参数具有相同的语法，但是 spread 运算符采用数组本身而不仅仅是参数。我们可以使用 Spread 参数来获取数组的值，而不是使用 for 循环或任何其他方法。
+```
+const arr=['said',20,'JavaScript enthusiast','Hi','Said','How are you?'];
+const Func=(...anArray)=>{
+  return anArray;
+}
+console.log(Func(arr)); //["said", 20, "JavaScript enthusiast", "Hi", "Said", "How are you?"
+```
+## class
+类是面向对象编程（OOP）的核心。它们使您的代码更安全和封装。使用类可以为代码提供一个很好的结构并使其保持面向对象。
+
+```
+class myClass {
+  constructor() {
+  }
+}
+```
+要创建一个类，请使用 class 关键字，后跟带有两个大括号的类的名称。
+```
+class myClass {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+const user = new myClass('Said', 22);
+console.log(user.name); // Said
+cosnole.log(user.age); // 22
+```
+现在我们可以使用 new 关键字访问类方法和属性。
+```
+class myClass{
+    constructor(name,age){
+    this.name=name;
+    this.age=age;
+}
+}
+const Home= new myClass("said",20);
+console.log(Home.name)//  said
+```
+现在我们可以使用 new 关键字访问类方法和属性。
+```
+class myClass{
+    constructor(name,age){
+    this.name=name;
+    this.age=age;
+}
+}
+const Home= new myClass("said",20);
+console.log(Home.name)//  said
+```
+要从其他类继承，请使用 extends 关键字，后跟要继承的类的名称。
+```
+class myClass {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  sayHello() {
+    cosnole.log(`Hi ${this.name} your age is ${this.age} `);
+  }
+}
+
+// 继承 myClass 方法和属性
+class UserProfile extends myClass {
+  username() {
+    console.log(this.name);
+  }
+}
+
+const profile = new UserProfile('Said', 22);
+profile.sayHello();// Hi Said your age is 22;
+profile.username();// Said
+```
